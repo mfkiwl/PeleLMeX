@@ -317,7 +317,7 @@ compute_divu(
     (specEnthDiff(i, j, k) + tempDiff(i, j, k) + extRhoH(i, j, k)) * denominv;
   for (int n = 0; n < NUM_SPECIES; n++) {
     amrex::Real specTerm = specDiff(i, j, k, n) + extRhoY(i, j, k, n);
-    if (do_react != 0 != 0) {
+    if (do_react != 0) {
       specTerm += rhoYdot(i, j, k, n);
     }
     divu(i, j, k) += specTerm * (mwtinv[n] * Wbar * rhoinv - hi[n] * denominv);
@@ -890,7 +890,7 @@ buildDiffusionForcing(
 
   for (int n = 0; n < NUM_SPECIES; n++) {
     forceY(i, j, k, n) =
-      a(i, j, k, n) + 0.5_rt * (dn(i, j, k, n) - dnp1k(i, j, k, n != 0));
+      a(i, j, k, n) + 0.5_rt * (dn(i, j, k, n) - dnp1k(i, j, k, n));
     if (do_react != 0) {
       forceY(i, j, k, n) += r(i, j, k, n);
     }
