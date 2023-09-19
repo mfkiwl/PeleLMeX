@@ -18,7 +18,8 @@ PeleLM::fluxDivergence(
   Real scale)
 {
   BL_PROFILE("PeleLMeX::fluxDivergence()");
-  if (intensiveFluxes != 0) { // Fluxes are intensive -> need area scaling in div
+  if (intensiveFluxes != 0) { // Fluxes are intensive -> need area scaling in
+                              // div
     for (int lev = 0; lev <= finest_level; ++lev) {
       intFluxDivergenceLevel(
         lev, *a_divergence[lev], div_comp, a_fluxes[lev], flux_comp, ncomp,
@@ -47,7 +48,8 @@ PeleLM::fluxDivergence(
 {
 
   BL_PROFILE("PeleLMeX::fluxDivergence()");
-  if (intensiveFluxes != 0) { // Fluxes are intensive -> need area scaling in div
+  if (intensiveFluxes != 0) { // Fluxes are intensive -> need area scaling in
+                              // div
     for (int lev = 0; lev <= finest_level; ++lev) {
       intFluxDivergenceLevelEB(
         lev, *a_divergence[lev], div_comp, a_fluxes[lev], flux_comp,
@@ -777,8 +779,8 @@ PeleLM::loadBalanceChemLev(int a_lev)
   if (
     (m_loadBalanceEffRatioThreshold > 0.0) &&
     (ParallelDescriptor::MyProc() == ParallelDescriptor::IOProcessorNumber())) {
-    updateDmap =
-      static_cast<int>(testEfficiency > m_loadBalanceEffRatioThreshold * currentEfficiency);
+    updateDmap = static_cast<int>(
+      testEfficiency > m_loadBalanceEffRatioThreshold * currentEfficiency);
   }
   ParallelDescriptor::Bcast(
     &updateDmap, 1, ParallelDescriptor::IOProcessorNumber());
@@ -953,7 +955,7 @@ PeleLM::initProgressVariable()
   if (hasUserC != 0) {
     pp.query("progressVariable.format", Cformat);
     if (Cformat.compare("Cantera") == 0) { // use a Cantera-like format with
-                                       // <entry>:<weight>, default to 0.0
+                                           // <entry>:<weight>, default to 0.0
       // Weights
       Vector<std::string> stringIn;
       Vector<Real> weightsIn(NUM_SPECIES + 1, 0.0);
@@ -980,9 +982,9 @@ PeleLM::initProgressVariable()
         m_C0 += coldState[i] * m_Cweights[i];
         m_C1 += hotState[i] * m_Cweights[i];
       }
-    } else if (Cformat.compare(
-                 "RealList") == 0) { // use a list of Real. MUST contains an entry
-                                // for each species+Temp
+    } else if (Cformat.compare("RealList") == 0) { // use a list of Real. MUST
+                                                   // contains an entry
+                                                   // for each species+Temp
       // Weights
       Vector<Real> weightsIn;
       int entryCount = pp.countval("progressVariable.weights");
@@ -1655,7 +1657,7 @@ PeleLM::initMixtureFraction()
   if (hasUserMF != 0) {
     pp.query("mixtureFraction.format", MFformat);
     if (MFformat.compare("Cantera") == 0) { // use a Cantera-like format with
-                                        // <SpeciesName>:<Value>, default in 0.0
+      // <SpeciesName>:<Value>, default in 0.0
       std::string MFCompoType;
       pp.query("mixtureFraction.type", MFCompoType);
       Vector<std::string> compositionIn;
@@ -1667,9 +1669,9 @@ PeleLM::initMixtureFraction()
       compositionIn.resize(entryCount);
       pp.getarr("mixtureFraction.fuelTank", compositionIn, 0, entryCount);
       parseComposition(compositionIn, MFCompoType, YF);
-    } else if (MFformat.compare(
-                 "RealList") == 0) { // use a list of Real. MUST contains an entry
-                                // for each species in the mixture
+    } else if (MFformat.compare("RealList") == 0) { // use a list of Real. MUST
+                                                    // contains an entry
+      // for each species in the mixture
       std::string MFCompoType;
       pp.query("mixtureFraction.type", MFCompoType);
       if (MFCompoType.compare("mass") == 0) {

@@ -56,9 +56,10 @@ PeleLM::regrid(int lbase, amrex::Real time, bool initial)
         (m_loadBalanceEffRatioThreshold > 0.0) &&
         (ParallelDescriptor::MyProc() ==
          ParallelDescriptor::IOProcessorNumber())) {
-        remakeLevel =
-          (static_cast<int>(remakeLevel != 0) ||
-          (testEfficiency > m_loadBalanceEffRatioThreshold * currentEfficiency));
+        remakeLevel = static_cast<int>(
+          (remakeLevel != 0) ||
+          (testEfficiency >
+           m_loadBalanceEffRatioThreshold * currentEfficiency));
       }
       ParallelDescriptor::Bcast(
         &remakeLevel, 1, ParallelDescriptor::IOProcessorNumber());
@@ -220,9 +221,10 @@ PeleLM::regrid(int lbase, amrex::Real time, bool initial)
               (m_loadBalanceEffRatioThreshold > 0.0) &&
               (ParallelDescriptor::MyProc() ==
                ParallelDescriptor::IOProcessorNumber())) {
-              remakeLevel = (static_cast<int>(remakeLevel != 0) ||
-                            (testEfficiency > m_loadBalanceEffRatioThreshold *
-                                                currentEfficiency));
+              remakeLevel = static_cast<int>(
+                (remakeLevel != 0) ||
+                (testEfficiency >
+                 m_loadBalanceEffRatioThreshold * currentEfficiency));
             }
             ParallelDescriptor::Bcast(
               &remakeLevel, 1, ParallelDescriptor::IOProcessorNumber());

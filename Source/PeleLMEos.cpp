@@ -63,7 +63,7 @@ PeleLM::calcDivU(
 
     MultiFab RhoYdot;
     if ((m_do_react != 0) && (m_skipInstantRR == 0)) {
-      if (is_init != 0) {      // Either pre-divU, divU or press initial iterations
+      if (is_init != 0) { // Either pre-divU, divU or press initial iterations
         if (m_dt > 0.0) { // divU ite   -> use I_R
           auto* ldataR_p = getLevelDataReactPtr(lev);
           RhoYdot.define(grids[lev], dmap[lev], nCompIR(), 0);

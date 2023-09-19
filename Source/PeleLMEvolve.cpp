@@ -111,7 +111,9 @@ PeleLM::Evolve()
     (plt_justDidIt == 0) && m_nstep > 0) {
     WritePlotFile();
   }
-  if ((m_check_int > 0 || m_check_per > 0.) && (chk_justDidIt == 0) && m_nstep > 0) {
+  if (
+    (m_check_int > 0 || m_check_per > 0.) && (chk_justDidIt == 0) &&
+    m_nstep > 0) {
     WriteCheckPointFile();
   }
 }

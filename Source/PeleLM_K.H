@@ -847,7 +847,7 @@ buildAdvectionForcing(
   for (int n = 0; n < NUM_SPECIES; n++) {
     y[n] = rhoY(i, j, k, n) * rhoinv;    // get y
     forceY(i, j, k, n) = dn(i, j, k, n); // forceY = Dnk
-  if (do_react != 0) {
+    if (do_react != 0) {
       forceY(i, j, k, n) += r(i, j, k, n); //         + Rk
     }
     forceT(i, j, k) -= forceY(i, j, k, n) * hi_spec[n] *
