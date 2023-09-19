@@ -88,12 +88,11 @@ PeleLM::computeDifferentialDiffusionTerms(
   // wbar term During initialization, don't bother getting the wbar fluxes
   // separately
   Vector<std::array<MultiFab*, AMREX_SPACEDIM>> wbarFluxVec =
-    ((is_init != 0) || (m_use_wbar == 0))
-      ? Vector<std::array<MultiFab*, AMREX_SPACEDIM>>{}
-      : GetVecOfArrOfPtrs(diffData->wbar_fluxes);
+    ((is_init != 0) || (m_use_wbar == 0)) ? Vector<std::array<MultiFab*, AMREX_SPACEDIM>>{}
+                             : GetVecOfArrOfPtrs(diffData->wbar_fluxes);
   Vector<std::array<MultiFab*, AMREX_SPACEDIM>> soretFluxVec =
     (m_use_soret) != 0 ? GetVecOfArrOfPtrs(diffData->soret_fluxes)
-                       : Vector<std::array<MultiFab*, AMREX_SPACEDIM>>{};
+                  : Vector<std::array<MultiFab*, AMREX_SPACEDIM>>{};
 #ifdef AMREX_USE_EB
   if (m_isothermalEB) {
     computeDifferentialDiffusionFluxes(
@@ -109,8 +108,7 @@ PeleLM::computeDifferentialDiffusionTerms(
   // If doing species balances, compute face domain integrals
   // using level 0 since we've averaged down the fluxes already
   // Factor for SDC is 0.5 is for Dn and -0.5 for Dnp1
-  if (
-    (m_sdcIter == 0 || m_sdcIter == m_nSDCmax) && (m_do_speciesBalance != 0)) {
+  if ((m_sdcIter == 0 || m_sdcIter == m_nSDCmax) && (m_do_speciesBalance != 0)) {
     Real sdc_weight = (a_time == AmrOldTime) ? 0.5 : -0.5;
     addRhoYFluxes(GetArrOfConstPtrs(fluxes[0]), geom[0], sdc_weight);
   }
@@ -1042,9 +1040,8 @@ PeleLM::differentialDiffusionUpdate(
         (m_use_wbar) != 0
           ? diffData->Dwbar[lev].const_array(mfi)
           : diffData->Dhat[lev].const_array(mfi); // Dummy unused Array4
-      auto const& dT = (m_use_soret) != 0
-                         ? diffData->DT[lev].const_array(mfi)
-                         : diffData->Dhat[lev].const_array(mfi);
+      auto const& dT = (m_use_soret) != 0 ? diffData->DT[lev].const_array(mfi)
+                                     : diffData->Dhat[lev].const_array(mfi);
 
       amrex::ParallelFor(
         bx, NUM_SPECIES,
@@ -1424,9 +1421,8 @@ PeleLM::getScalarDiffForce(
         (m_use_wbar) != 0
           ? diffData->Dwbar[lev].const_array(mfi, 0)
           : diffData->Dn[lev].const_array(mfi, 0); // Dummy unsed Array4
-      auto const& dT = (m_use_soret) != 0
-                         ? diffData->DT[lev].const_array(mfi, 0)
-                         : diffData->Dn[lev].const_array(mfi, 0);
+      auto const& dT = (m_use_soret) != 0 ? diffData->DT[lev].const_array(mfi, 0)
+                                     : diffData->Dn[lev].const_array(mfi, 0);
 
       amrex::ParallelFor(
         bx,

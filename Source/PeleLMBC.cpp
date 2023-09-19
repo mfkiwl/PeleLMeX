@@ -339,8 +339,7 @@ PeleLM::fillpatch_state(
     PhysBCFunct<GpuBndryFuncFab<PeleLMCCFillExtDirState>> bndry_func(
       geom[lev], fetchBCRecArray(0, nCompState),
       PeleLMCCFillExtDirState{
-        lprobparm, lpmfdata, m_nAux,
-        static_cast<int>(turb_inflow.is_initialized())});
+        lprobparm, lpmfdata, m_nAux, static_cast<int>(turb_inflow.is_initialized())});
     FillPatchSingleLevel(
       a_state, IntVect(nGhost), a_time,
       {&(m_leveldata_old[lev]->state), &(m_leveldata_new[lev]->state)},
@@ -353,13 +352,11 @@ PeleLM::fillpatch_state(
     PhysBCFunct<GpuBndryFuncFab<PeleLMCCFillExtDirState>> crse_bndry_func(
       geom[lev - 1], fetchBCRecArray(0, nCompState),
       PeleLMCCFillExtDirState{
-        lprobparm, lpmfdata, m_nAux,
-        static_cast<int>(turb_inflow.is_initialized())});
+        lprobparm, lpmfdata, m_nAux, static_cast<int>(turb_inflow.is_initialized())});
     PhysBCFunct<GpuBndryFuncFab<PeleLMCCFillExtDirState>> fine_bndry_func(
       geom[lev], fetchBCRecArray(0, nCompState),
       PeleLMCCFillExtDirState{
-        lprobparm, lpmfdata, m_nAux,
-        static_cast<int>(turb_inflow.is_initialized())});
+        lprobparm, lpmfdata, m_nAux, static_cast<int>(turb_inflow.is_initialized())});
     FillPatchTwoLevels(
       a_state, IntVect(nGhost), a_time,
       {&(m_leveldata_old[lev - 1]->state), &(m_leveldata_new[lev - 1]->state)},
@@ -737,13 +734,11 @@ PeleLM::fillcoarsepatch_state(
   PhysBCFunct<GpuBndryFuncFab<PeleLMCCFillExtDirState>> crse_bndry_func(
     geom[lev - 1], fetchBCRecArray(0, nCompState),
     PeleLMCCFillExtDirState{
-      lprobparm, lpmfdata, m_nAux,
-      static_cast<int>(turb_inflow.is_initialized())});
+      lprobparm, lpmfdata, m_nAux, static_cast<int>(turb_inflow.is_initialized())});
   PhysBCFunct<GpuBndryFuncFab<PeleLMCCFillExtDirState>> fine_bndry_func(
     geom[lev], fetchBCRecArray(0, nCompState),
     PeleLMCCFillExtDirState{
-      lprobparm, lpmfdata, m_nAux,
-      static_cast<int>(turb_inflow.is_initialized())});
+      lprobparm, lpmfdata, m_nAux, static_cast<int>(turb_inflow.is_initialized())});
   InterpFromCoarseLevel(
     a_state, IntVect(nGhost), a_time, m_leveldata_new[lev - 1]->state, 0, 0,
     nCompState, geom[lev - 1], geom[lev], crse_bndry_func, 0, fine_bndry_func,
@@ -866,8 +861,7 @@ PeleLM::setInflowBoundaryVel(MultiFab& a_vel, int lev, TimeStamp a_time)
   PhysBCFunct<GpuBndryFuncFab<PeleLMCCFillExtDirState>> bndry_func(
     geom[lev], dummyVelBCRec,
     PeleLMCCFillExtDirState{
-      lprobparm, lpmfdata, m_nAux,
-      static_cast<int>(turb_inflow.is_initialized())});
+      lprobparm, lpmfdata, m_nAux, static_cast<int>(turb_inflow.is_initialized())});
 
   bndry_func(a_vel, 0, AMREX_SPACEDIM, a_vel.nGrowVect(), time, 0);
 

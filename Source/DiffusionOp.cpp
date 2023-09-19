@@ -1108,8 +1108,7 @@ DiffusionTensorOp::compute_divtau(
 #else
   m_apply_op->setScalars(0.0, -scale);
   for (int lev = 0; lev <= finest_level; ++lev) {
-    if (have_density != 0) { // alpha being zero, not sure that this does
-                             // anything.
+    if (have_density != 0) { // alpha being zero, not sure that this does anything.
       m_apply_op->setACoeffs(lev, *a_density[lev]);
     }
     int doZeroVisc = 0;
@@ -1195,7 +1194,7 @@ DiffusionTensorOp::diffuse_velocity(
       auto const& rhs_a = rhs[lev].array(mfi);
       auto const& vel_a = a_vel[lev]->const_array(mfi);
       auto const& rho_a = (have_density) != 0 ? a_density[lev]->const_array(mfi)
-                                              : Array4<const Real>{};
+                                         : Array4<const Real>{};
       amrex::ParallelFor(
         bx, AMREX_SPACEDIM,
         [=, rho_incomp = m_pelelm->m_rho,
